@@ -1,4 +1,6 @@
+# 모델 학습 및 저장 코드 (로컬에서 1회만 실행)
 import pandas as pd
+from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 import joblib
 
@@ -14,13 +16,14 @@ data = {
     'hyphen_in_url': [1, 0, 1, 0, 1, 0],
     'hyphen_in_subdomain': [0, 0, 0, 0, 1, 0],
     'long_domain': [1, 0, 1, 0, 1, 0],
-    'label': [0, 0, 1, 0, 1, 0]
+    'label': [0, 0, 1, 0, 1, 0]  # 0: 안전, 1: 피싱
 }
 df = pd.DataFrame(data)
 
 X = df.drop('label', axis=1)
 y = df['label']
 
+# 모델 학습
 model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(X, y)
 
